@@ -5,9 +5,9 @@ import java.awt.event.*;
 import java.util.*;
 
 public class Property extends JMenu{
-	Thickness thickness = new Thickness("Thickness");
-	MyColor mycolor = new MyColor("Color");
-	public JMenu propertyMenu;
+	JMenuItem thickness = new JMenuItem("Thickness");
+	JMenuItem mycolor = new JMenuItem("Color");
+	
 	Property(String s){
 		super(s);
 		createProperty();
@@ -16,5 +16,20 @@ public class Property extends JMenu{
 	public void createProperty() {
 		this.add(thickness);
 		this.add(mycolor);
+		
+		thickness.addActionListener(listener);
+		mycolor.addActionListener(listener);
 	}
+	ActionListener listener = new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			String tool = e.getActionCommand();
+			if(tool.equals("Thickness")) {
+				MainFrame.toolName = "Thickness";
+			}
+			else if(tool.equals("Color")) {
+				MainFrame.toolName = "Color";
+				ColorChooser color = new ColorChooser();
+			}
+		}
+	};
 }

@@ -1,25 +1,50 @@
 package com.example.yujin;
 import java.awt.*;
+import java.util.*;
 import javax.swing.*;
 import java.awt.event.*;
 import java.util.*;
 
 public class Sketch extends JMenu{
-	Line line = new Line("Line");
-	Square square = new Square("Square");
-	Circle circle = new Circle("Circle");
-	Free_Sketch free_sketch = new Free_Sketch("Free_Sketch");
+	JMenuItem line = new JMenuItem("Line");
+	JMenuItem square = new JMenuItem("Square");
+	JMenuItem circle = new JMenuItem("Circle");
+	JMenuItem free_sketch = new JMenuItem("Free_Sketch");
+	//MyEvent myevent = new MyEvent();
 	
 	Sketch(String s){
 		super(s);
 		createSketch();
-		
 	}
-	//JMenuItem line = new JMenuItem("Line");
 	public void createSketch() {
 		this.add(line);
 		this.add(square);
 		this.add(circle);
 		this.add(free_sketch);
+		
+		line.addActionListener(listener);
+		square.addActionListener(listener);
+		circle.addActionListener(listener);
+		free_sketch.addActionListener(listener);
 	}
+	
+	ActionListener listener = new ActionListener() {
+		//MyEvent myevent = new MyEvent();
+		public void actionPerformed(ActionEvent e) {
+			String tool = e.getActionCommand();
+			if(tool.equals("Line")) {
+				MainFrame.toolName = "Line";
+				
+			}
+			else if(tool.equals("Square")) {
+				MainFrame.toolName = "Square";
+			}
+			else if(tool.equals("Circle")) {
+				MainFrame.toolName = "Circle";
+			}
+			else if(tool.equals("Free_Sketch")) {
+				MainFrame.toolName = "Free_Sketch";
+			}
+		}
+	};
 }

@@ -18,10 +18,8 @@ public class ColorChooser extends JFrame implements ChangeListener{
    
    @Override
    public void stateChanged(ChangeEvent e) {
-      // TODO Auto-generated method stub
       color = colorChooser.getColor();
       colorChange = true;
-      //System.out.print("\""+Integer.toHexString(color.getRGB())+"\", ");
       MainFrame.button.setBorderPainted(false);
       MainFrame.button.setOpaque(true);
       MainFrame.button.setBackground(color);

@@ -23,21 +23,5 @@ public class Thickness extends JMenuItem implements ActionListener{
 		//makeButton();
 		
 	}
-//	public void makeButton() {
-//		JLabel thickness = new JLabel("굵기 조절: ");
-//		JTextField thicktext = new JTextField(5);
-//		thick.add(thickness);
-//		thick.add(thicktext);
-//		String text = thicktext.getText();
-//		size = Integer.parseInt(text);
-//		//thick.setBounds(100, 100, 50, 50);
-//		MainFrame.panel.add(thick);
-//		MainFrame.panel.add(thickness);
-//		MainFrame.panel.add(thicktext);
-		
-//	}
-//	public void paintComponent(Graphics g) {
-//		 Graphics2D g2 = (Graphics2D)g;
-//		 g2.setStroke(new BasicStroke(size,BasicStroke.CAP_ROUND,0));
-//	}
+
 }

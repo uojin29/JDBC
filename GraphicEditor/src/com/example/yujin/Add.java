@@ -5,17 +5,32 @@ import java.awt.event.*;
 import java.util.*;
 
 public class Add extends JMenu{
-	public JMenu addMenu;
-	Eraser add_eraser = new Eraser("Eraser");
-	Drag add_drag = new Drag("Drag");
+	JMenuItem add_eraser = new JMenuItem("Eraser");
+	JMenuItem add_drag = new JMenuItem("Drag");
 	
 	Add(String s){
 		super(s);
-		createAdd();
+		createProperty();
 	}
 	
-	public void createAdd() {
+	public void createProperty() {
 		this.add(add_eraser);
 		this.add(add_drag);
+		
+		add_eraser.addActionListener(listener);
+		add_drag.addActionListener(listener);
 	}
+	ActionListener listener = new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			String tool = e.getActionCommand();
+			if(tool.equals("Eraser")) {
+				MainFrame.toolName = "Eraser";
+				System.out.println("ActionListener Thickness 작동 ");
+			}
+			else if(tool.equals("Drag")) {
+				MainFrame.toolName = "Drag";
+				System.out.println("ActionListener Square 작동 ");
+			}
+		}
+	};
 }
