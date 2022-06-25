@@ -11,8 +11,6 @@ import javax.swing.colorchooser.ColorSelectionModel;
 public class ColorChooser extends JFrame implements ChangeListener{
    JColorChooser colorChooser = new JColorChooser();
    
-   //ColorSelectionModel model = colorChooser.getSelectionModel();
-
    static boolean colorChange;
    static Color color;
    
