@@ -33,17 +33,20 @@ public class Sketch extends JMenu{
 		public void actionPerformed(ActionEvent e) {
 			String tool = e.getActionCommand();
 			if(tool.equals("Line")) {
-				MainFrame.toolName = "Line";
-				
+				MainFrame.toolName = "[Line]";
+				MainFrame.label.setText("[Line]");
 			}
 			else if(tool.equals("Square")) {
-				MainFrame.toolName = "Square";
+				MainFrame.toolName = "[Square]";
+				MainFrame.label.setText("[Square]");
 			}
 			else if(tool.equals("Circle")) {
-				MainFrame.toolName = "Circle";
+				MainFrame.toolName = "[Circle]";
+				MainFrame.label.setText("[Circle]");
 			}
 			else if(tool.equals("Free_Sketch")) {
-				MainFrame.toolName = "Free_Sketch";
+				MainFrame.toolName = "[Free_Sketch]";
+				MainFrame.label.setText("[Free_Sketch]");
 			}
 		}
 	};

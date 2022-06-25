@@ -25,11 +25,11 @@ public class Add extends JMenu{
 			String tool = e.getActionCommand();
 			if(tool.equals("Eraser")) {
 				MainFrame.toolName = "Eraser";
-				System.out.println("ActionListener Thickness 작동 ");
+				System.out.println("ActionListener Eraser 작동 ");
 			}
 			else if(tool.equals("Drag")) {
 				MainFrame.toolName = "Drag";
-				System.out.println("ActionListener Square 작동 ");
+				System.out.println("ActionListener Drag 작동 ");
 			}
 		}
 	};

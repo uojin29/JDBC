@@ -31,29 +31,29 @@ public class MyEvent extends JPanel{
 				Point sp = sv.get(i); // 벡터값을꺼내다
 				Point ep = se.get(i);
 				
-				if(MainFrame.toolName.equals("Line")) {
+				if(MainFrame.toolName.equals("[Line]")) {
 					g.drawLine(sp.x, sp.y, ep.x, ep.y);//그리다
 					//System.out.println("MouseListener Line 작동 ");
 				}
-				else if(MainFrame.toolName.equals("Circle")) {
+				else if(MainFrame.toolName.equals("[Circle]")) {
 					g.drawOval(Math.min(sp.x, ep.x), Math.min(sp.y, ep.y),Math.abs(ep.x- sp.x),Math.abs(ep.y- sp.y));
 				}
-				else if(MainFrame.toolName.equals("Square")) {
+				else if(MainFrame.toolName.equals("[Square]")) {
 					g.drawRect(Math.min(sp.x, ep.x), Math.min(sp.y, ep.y),Math.abs(ep.x- sp.x),Math.abs(ep.y- sp.y));
 				}
 				
 			}
 		}
 		if(startP != null) {
-			if(MainFrame.toolName.equals("Line")) {
+			if(MainFrame.toolName.equals("[Line]")) {
 				g.drawLine(startP.x, startP.y, endP.x, endP.y);	//그리다
 				//System.out.println("MouseListener Line 작동 ");
 			}
-			else if(MainFrame.toolName.equals("Circle")) {
+			else if(MainFrame.toolName.equals("[Circle]")) {
 				g.drawOval(Math.min(startP.x, endP.x), Math.min(startP.y, endP.y),Math.abs(endP.x- startP.x),Math.abs(endP.y- startP.y));
 				//System.out.println("MouseListener Circle 작동 ");
 			}
-			else if(MainFrame.toolName.equals("Square")) {
+			else if(MainFrame.toolName.equals("[Square]")) {
 				g.drawRect(Math.min(startP.x, endP.x), Math.min(startP.y, endP.y),Math.abs(endP.x- startP.x),Math.abs(endP.y- startP.y));
 				//System.out.println("MouseListener Square 작동 ");
 			}
