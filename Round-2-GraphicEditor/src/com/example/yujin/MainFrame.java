@@ -1,37 +1,45 @@
 package com.example.yujin;
 import java.awt.*;
 import javax.swing.*;
-
-import com.example.yujin.Menu;
-
+import com.example.yujin.LinePanel.MyMouseListener;
 import java.awt.event.*;
 import java.util.*;
 
-public class MainFrame{
-	public static JFrame frame = new JFrame();
-	Menu menu = new Menu();
-
+public class MainFrame extends JFrame{
+	public static JPanel panel = new JPanel();
+	public static JLabel label = new JLabel("Default!",JLabel.LEFT);
+	JPanel menu = new JPanel();
+	//JPanel mode = new JPanel();
+	Point start = null, end = null;
+	//MainPanel panel = new MainPanel();
+	//LinePanel panel = new LinePanel();
+	//CirclePanel panel = new CirclePanel(); 
+	//SquarePanel panel = new SquarePanel();
+	
 	public MainFrame() {
-		JPanel panel = new JPanel();
-		JLabel label = new JLabel();
-
-		frame.setTitle("Graphic Editor");
-		frame.setSize(800,800);
-		frame.setResizable(false);
-		
-		
-		panel.add(new JLabel("출력 확인용 label"));
-		frame.add(panel);
-		frame.setVisible(true);
+		this.setTitle("Graphic Editor");
+		panel.setLayout(new FlowLayout());
 	}
 	
 	public static void main(String[] args) {
-		new MainFrame();
-		//Screen screen = new Screen();
-		//Button button = new Button();
-		//screen.setScreen();
-		//screen.setScreen();
-		//menu.setMenu();
-		System.out.println("Main 출력 확인 ");
+		MainFrame mainFrame = new MainFrame();
+		mainFrame.createMainFrame();
+	}
+	
+	private void createMainFrame() {
+		MenuBar menubar = new MenuBar();
+		panel.setBackground(Color.WHITE);
+		this.add(menubar);
+		this.setJMenuBar(menubar);
+		this.setSize(800,800);
+		this.setResizable(false);
+		//mode.add(label);
+		menu.add(label);
+		panel.setLayout(new BorderLayout());
+		//panel.add(label);
+		//panel.add(menu);
+		this.add(menu, BorderLayout.NORTH);
+		this.add(panel, BorderLayout.CENTER);
+		this.setVisible(true);
 	}
 }
