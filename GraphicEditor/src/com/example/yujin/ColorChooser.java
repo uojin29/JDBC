@@ -12,7 +12,7 @@ public class ColorChooser extends JFrame implements ChangeListener{
    JColorChooser colorChooser = new JColorChooser();
    
    static boolean colorChange;
-   static Color color;
+   static Color color = Color.BLACK;
    
    @Override
    public void stateChanged(ChangeEvent e) {

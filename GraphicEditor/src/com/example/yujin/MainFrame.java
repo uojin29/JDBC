@@ -14,14 +14,14 @@ public class MainFrame extends JFrame{
 	public static JButton button = new JButton(); //현재 선택된 색상을 보여주는 버튼 
 	JLabel current_thickness = new JLabel(" 	Thickness : ");
 	public static JTextField textfield = new JTextField(5);//굵기를 조절할 수 있는 textfield 
-	public static String toolName = "[Line]";
-	//public static int strike = 1;
+	public static String toolName = "Line";
 
 	
 	
 	public MainFrame() {
 		this.setTitle("Graphic Editor"); //frame의 이름 설정 
-		mainPanel.setLayout(new BorderLayout()); // 가장 큰 패널을 borderlayout으로 선언 
+		mainPanel.setLayout(new BorderLayout()); // 가장 큰 패널을 borderlayout으로 선언
+		canvasPanel.setBackground(Color.WHITE);
 		status.setLayout(new FlowLayout(FlowLayout.LEFT));//status 패널을 플로우 레이아웃으로 선언 (왼쪽부터 차례대로 배치)
 		button.setFocusPainted(false); //버튼이 선택되었을 때 테두리 보이지 않게 하는 기능 
 		textfield.setText("1");//굵기의 초기값을 1로 지정함 
@@ -31,8 +31,9 @@ public class MainFrame extends JFrame{
 	public static void main(String[] args) {
 		MainFrame mainFrame = new MainFrame(); // mainframe 인스턴스화 하기 
 		mainFrame.createMainFrame(); // createMainFrame 메소드를 호출 
+		mainFrame.labelSet();
 		MyEvent myevent = new MyEvent();
-		Property property = new Property();
+		ColorButton colorbutton = new ColorButton();
 	}
 	
 	private void createMainFrame() {
@@ -54,5 +55,9 @@ public class MainFrame extends JFrame{
 		this.add(mainPanel);//mainPanel을 프레임에 붙임 
 		
 		this.setVisible(true);
+	}
+	private void labelSet() {
+		Font font = new Font("", Font.PLAIN, 15);
+		current_tool.setFont(font);
 	}
 }

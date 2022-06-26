@@ -4,9 +4,9 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.util.*;
 
-public class Property{
+public class ColorButton{
 	
-	Property(){
+	ColorButton(){
 		createProperty();
 	}
 	
