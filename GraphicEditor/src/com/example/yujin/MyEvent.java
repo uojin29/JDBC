@@ -2,19 +2,14 @@ package com.example.yujin;
 import java.awt.*;
 import java.util.*;
 import javax.swing.*;
-
-import com.example.yujin.List;
-
 import java.awt.event.*;
 import java.util.*;
 
 public class MyEvent extends JPanel{
 	Point startP=null;
 	Point endP=null;
-	ArrayList<List> list = new ArrayList<List>();
-//	
-	
-	
+	static ArrayList<List> list = new ArrayList<List>();
+	ArrayList<Point> p;
 	
 	public MyEvent(){
 		MyMouseListener ml = new MyMouseListener();
@@ -22,7 +17,6 @@ public class MyEvent extends JPanel{
 		this.addMouseMotionListener(ml);
 		this.setBounds(0,0,1200,800);
 		this.setBackground(Color.WHITE);
-		MainFrame.canvasPanel.add(this);
 	}
 	
 	class List {
@@ -31,6 +25,7 @@ public class MyEvent extends JPanel{
 		float thicknessList;
 		Point sv;
 		Point se;
+		ArrayList<Point> point = new ArrayList<Point>();//점들의 집합  
 		
 		List(String drawType, Color colorList, float thicknessList, Point sv, Point se){
 			this.drawType = drawType;
@@ -38,17 +33,23 @@ public class MyEvent extends JPanel{
 			this.thicknessList = thicknessList;
 			this.sv = sv;
 			this.se = se;
+			this.point = null;
 		}
-		List(Point sv, Point se){
+		List(String drawType, Color colorList, float thicknessList, Point sv, Point se, ArrayList<Point> point){
+			this.drawType = drawType;
+			this.colorList = colorList;
+			this.thicknessList = thicknessList;
 			this.sv = sv;
 			this.se = se;
+			for(int i = 0; i < point.size(); i++) {
+				this.point = point;
+			}
 		}
 	}
 	
 	public void paintComponent(Graphics g){
 		super.paintComponent(g); // 부모 페인트호출
 		Graphics2D g2=(Graphics2D)g;
-		
 		if(list.size() != 0){
 			for(int i = 0; i < list.size();i++){ //벡터크기만큼
 				List e = list.get(i);
@@ -56,49 +57,62 @@ public class MyEvent extends JPanel{
 				g2.setColor(e.colorList);//색 조절하기 
 				if(e.drawType.equals("Line")) {
 					g.drawLine(e.sv.x, e.sv.y, e.se.x, e.se.y);//그리다
-					//System.out.println("MouseListener Line 작동 ");
+				}
+				else if(e.drawType.equals("Square")) {
+					g.drawRect(Math.min(e.sv.x, e.se.x), Math.min(e.sv.y, e.se.y),Math.abs(e.se.x- e.sv.x),Math.abs(e.se.y- e.sv.y));
 				}
 				else if(e.drawType.equals("Circle")) {
 					g.drawOval(Math.min(e.sv.x, e.se.x), Math.min(e.sv.y, e.se.y),Math.abs(e.se.x- e.sv.x),Math.abs(e.se.y- e.sv.y));
 				}
-				else if(e.drawType.equals("Square")) {
-					g.drawRect(Math.min(e.sv.x, e.se.x), Math.min(e.sv.y, e.se.y),Math.abs(e.se.x- e.sv.x),Math.abs(e.se.y- e.sv.y));
+				else if(e.drawType.equals("Pen")) {
+					for(int j = 0; j < e.point.size() - 1; j++) {
+						g.drawLine(e.point.get(j).x, e.point.get(j).y, e.point.get(j + 1).x, e.point.get(j + 1).y);
+					}
 				}
 			}
 		}
 		if(startP != null) {
 			g2.setStroke(new BasicStroke(Float.parseFloat(MainFrame.textfield.getText())));//굵기 조절 바로 하기 
-			g2.setColor(ColorChooser.color);//색 조절하기 
+			g2.setColor(MainFrame.colorValue);//색 조절하기 
 			if(MainFrame.toolName.equals("Line")) {
 				g.drawLine(startP.x, startP.y, endP.x, endP.y);	//그리다
 			}
-			else if(MainFrame.toolName.equals("Circle")) {
-				g.drawOval(Math.min(startP.x, endP.x), Math.min(startP.y, endP.y),Math.abs(endP.x- startP.x),Math.abs(endP.y- startP.y));
-				//System.out.println("MouseListener Circle 작동 ");
-			}
 			else if(MainFrame.toolName.equals("Square")) {
 				g.drawRect(Math.min(startP.x, endP.x), Math.min(startP.y, endP.y),Math.abs(endP.x- startP.x),Math.abs(endP.y- startP.y));
-				//System.out.println("MouseListener Square 작동 ");
+			}
+			else if(MainFrame.toolName.equals("Circle")) {
+				g.drawOval(Math.min(startP.x, endP.x), Math.min(startP.y, endP.y),Math.abs(endP.x- startP.x),Math.abs(endP.y- startP.y));
+			}
+			else if(MainFrame.toolName.equals("Pen")) {
+				for(int i = 0; i < p.size() - 1; i++) {
+					g.drawLine(p.get(i).x, p.get(i).y, p.get(i + 1).x, p.get(i + 1).y);
+				}
 			}
 		}
 	}
 	
-	
 	class MyMouseListener extends MouseAdapter implements MouseMotionListener{
 		public void mousePressed(MouseEvent e){
 			startP = e.getPoint();
-			
+			p = new ArrayList<Point>();
+			p.add(startP);
 		}
 		public void mouseReleased(MouseEvent e){
 			endP = e.getPoint();
-			new List(startP, endP);
-			//elements.add(new Element(shape, c, MainFrame.count, startP, endP, vStart));
-			list.add(new List(MainFrame.toolName, ColorChooser.color, Float.parseFloat(MainFrame.textfield.getText()), startP, endP));
-			repaint(); // 다시그려라
+			p.add(endP);
+			
+			if(MainFrame.toolName.equals("Line") || MainFrame.toolName.equals("Square") || MainFrame.toolName.equals("Circle")) {
+				list.add(new List(MainFrame.toolName, MainFrame.colorValue, Float.parseFloat(MainFrame.textfield.getText()), startP, endP));
+			}
+			else if(MainFrame.toolName.equals("Pen")) {
+				list.add(new List(MainFrame.toolName, MainFrame.colorValue, Float.parseFloat(MainFrame.textfield.getText()), startP, endP, p));
+			}
+			repaint();
 		}
 		
 		public void mouseDragged(MouseEvent e){
 			endP = e.getPoint();
+			p.add(endP);
 			repaint();
 		}
 		

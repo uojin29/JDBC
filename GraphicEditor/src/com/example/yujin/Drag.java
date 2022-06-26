@@ -17,7 +17,6 @@ public class Drag extends JMenuItem implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		MainFrame.label.setText("Mode: Drag");
-
 		System.out.println("Drag");
 		
 	}

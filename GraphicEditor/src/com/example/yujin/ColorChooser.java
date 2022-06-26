@@ -9,30 +9,23 @@ import javax.swing.event.ChangeListener;
 import javax.swing.colorchooser.ColorSelectionModel;
 
 public class ColorChooser extends JFrame implements ChangeListener{
-   JColorChooser colorChooser = new JColorChooser();
-   
    static boolean colorChange;
-   static Color color = Color.BLACK;
+   private Color color = Color.BLACK;
    
    @Override
    public void stateChanged(ChangeEvent e) {
-      color = colorChooser.getColor();
+      MainFrame.colorValue = color;
       colorChange = true;
-      MainFrame.button.setBorderPainted(false);
-      MainFrame.button.setOpaque(true);
-      MainFrame.button.setBackground(color);
    }
    
    public ColorChooser(){
       setTitle("색상 고르기");
       setLocation(400, 200);
       setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-      
-      colorChooser.getSelectionModel().addChangeListener(this);
-      
-      add(colorChooser);
       pack();
-      setVisible(true);
+      
    }
-
+   public Color getColor() {
+	   return color;
+   }
 }

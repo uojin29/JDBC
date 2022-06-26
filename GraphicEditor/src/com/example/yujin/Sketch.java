@@ -9,8 +9,7 @@ public class Sketch extends JMenu{
 	JMenuItem line = new JMenuItem("Line");
 	JMenuItem square = new JMenuItem("Square");
 	JMenuItem circle = new JMenuItem("Circle");
-	JMenuItem free_sketch = new JMenuItem("Free_Sketch");
-	//MyEvent myevent = new MyEvent();
+	JMenuItem free_sketch = new JMenuItem("Pen");
 	
 	Sketch(String s){
 		super(s);
@@ -31,7 +30,11 @@ public class Sketch extends JMenu{
 	ActionListener listener = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 			String tool = e.getActionCommand();
-			if(tool.equals("Line")) {
+			if(tool.equals("Pen")) {
+				MainFrame.toolName = "Pen";
+				MainFrame.label.setText("[Pen]");
+			}
+			else if(tool.equals("Line")) {
 				MainFrame.toolName = "Line";
 				MainFrame.label.setText("[Line]");
 			}
@@ -42,10 +45,6 @@ public class Sketch extends JMenu{
 			else if(tool.equals("Circle")) {
 				MainFrame.toolName = "Circle";
 				MainFrame.label.setText("[Circle]");
-			}
-			else if(tool.equals("Free_Sketch")) {
-				MainFrame.toolName = "Free_Sketch";
-				MainFrame.label.setText("[Free_Sketch]");
 			}
 		}
 	};
