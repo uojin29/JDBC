@@ -88,6 +88,7 @@ public class MyEvent extends JPanel{
 				}
 			}
 		}
+		
 		if(startP != null) {
 			g2.setStroke(new BasicStroke(Float.parseFloat(MainFrame.textfield.getText()),BasicStroke.CAP_ROUND,0));//굵기 조절 바로 하기 
 			
