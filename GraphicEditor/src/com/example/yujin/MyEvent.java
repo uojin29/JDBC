@@ -3,7 +3,6 @@ import java.awt.*;
 import java.util.*;
 import javax.swing.*;
 import java.awt.event.*;
-import java.util.*;
 
 public class MyEvent extends JPanel{
 	static Point startP=null;
@@ -11,6 +10,7 @@ public class MyEvent extends JPanel{
 	static ArrayList<List> list = new ArrayList<List>();
 	ArrayList<Point> p;
 	static Stack <List> stack = new Stack<List>();
+	ArrayList<String> s = new ArrayList<String>();
 	
 	public MyEvent(){
 		MyMouseListener ml = new MyMouseListener();
@@ -25,6 +25,7 @@ public class MyEvent extends JPanel{
 		float thicknessList;
 		Point sv;
 		Point se;
+		
 		ArrayList<Point> point = new ArrayList<Point>();//점들의 집합  
 		
 		List(String drawType, Color colorList, float thicknessList, Point sv, Point se){
@@ -79,8 +80,9 @@ public class MyEvent extends JPanel{
 					}
 				}
 				else if(e.drawType.equals("Text")) {
-					g.drawString(MainFrame.inputText.getText(), e.sv.x, e.sv.y);
-					System.out.println(MainFrame.inputText.getText());
+					for(int j = 0; j < e.point.size() - 1; j++) {
+						g.drawString(s.get(i), e.sv.x, e.sv.y);
+					}
 				}
 			}
 		}
@@ -112,7 +114,9 @@ public class MyEvent extends JPanel{
 				}
 			}
 			else if(MainFrame.toolName.equals("Text")) {
-				g.drawString(MainFrame.inputText.getText(), startP.x, startP.y);
+				for(int i = 0; i < p.size() - 1; i++) {
+					//g.drawString(s.get(i), startP.x, startP.y);
+				}
 			}
 			
 		}
@@ -123,6 +127,7 @@ public class MyEvent extends JPanel{
 			startP = e.getPoint();
 			p = new ArrayList<Point>();
 			p.add(startP);
+			s.add(MainFrame.inputText.getText());
 			if(MainFrame.toolName.equals("Eraser")) {
 				repaint();
 			}
