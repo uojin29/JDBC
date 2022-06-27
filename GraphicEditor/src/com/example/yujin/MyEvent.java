@@ -82,9 +82,7 @@ public class MyEvent extends JPanel{
 				else if(e.drawType.equals("Text")) {
 					g2.setFont(new Font("", Font.PLAIN, (int)e.thicknessList));
 					g2.setColor(e.colorList);
-					for(int j = 0; j < e.point.size() - 1; j++) {
-						g.drawString(s.get(i), e.sv.x, e.sv.y);
-					}
+					g.drawString(s.get(i), e.sv.x, e.sv.y);
 				}
 			}
 		}
