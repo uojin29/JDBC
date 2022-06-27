@@ -30,11 +30,7 @@ public class Sketch extends JMenu{
 	ActionListener listener = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 			String tool = e.getActionCommand();
-			if(tool.equals("Pen")) {
-				MainFrame.toolName = "Pen";
-				MainFrame.label.setText("[Pen]");
-			}
-			else if(tool.equals("Line")) {
+			if(tool.equals("Line")) {
 				MainFrame.toolName = "Line";
 				MainFrame.label.setText("[Line]");
 			}
@@ -45,6 +41,10 @@ public class Sketch extends JMenu{
 			else if(tool.equals("Circle")) {
 				MainFrame.toolName = "Circle";
 				MainFrame.label.setText("[Circle]");
+			}
+			else if(tool.equals("Pen")) {
+				MainFrame.toolName = "Pen";
+				MainFrame.label.setText("[Pen]");
 			}
 		}
 	};

@@ -48,8 +48,15 @@ public class ColorButton extends JButton implements ChangeListener{
 	@Override
 	public void stateChanged(ChangeEvent e) {
 		color = colorChooser.getColor();
-		MainFrame.colorValue = color;
-		ColorButton.this.setBackground(color);
+		if(MainFrame.toolName == "Eraser") {
+			MainFrame.colorValue = Color.WHITE;
+			ColorButton.this.setBackground(Color.WHITE);
+		}
+		else {
+			MainFrame.colorValue = color;
+			ColorButton.this.setBackground(color);
+		}
+		
 	}
 	
 }

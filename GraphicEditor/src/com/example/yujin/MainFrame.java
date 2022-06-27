@@ -14,9 +14,7 @@ public class MainFrame extends JFrame{
 	JLabel current_thickness = new JLabel(" 	Thickness : ");
 	public static JTextField textfield = new JTextField(5);//굵기를 조절할 수 있는 textfield
 	public static String toolName = "Pen";
-	public static JButton allClear = new JButton("All Clear");//현재 패널에 그려진 모든 것 삭제 
-	public static Boolean AC = false;
-	public static Color colorValue;
+	public static Color colorValue = Color.BLACK;
 	
 	
 	public MainFrame() {
@@ -26,7 +24,6 @@ public class MainFrame extends JFrame{
 		canvasPanel.setLayout(null);
 		canvasPanel.setBounds(0,0,1200,800);
 		status.setLayout(new FlowLayout(FlowLayout.LEFT));//status 패널을 플로우 레이아웃으로 선언 (왼쪽부터 차례대로 배치)
-		//button.setFocusPainted(false); //버튼이 선택되었을 때 테두리 보이지 않게 하는 기능 
 		textfield.setText("1");//굵기의 초기값을 1로 지정함 
 	}
 	
@@ -34,8 +31,6 @@ public class MainFrame extends JFrame{
 		MainFrame mainFrame = new MainFrame(); // mainframe 인스턴스화 하기 
 		mainFrame.createMainFrame(); // createMainFrame 메소드를 호출 
 		//mainFrame.labelSet();
-		
-		
 	}
 	
 	private void createMainFrame() {
@@ -56,7 +51,6 @@ public class MainFrame extends JFrame{
 		status.add(chooserCaller);//status 패널에 button 붙임 
 		status.add(current_thickness);
 		status.add(textfield);
-		status.add(allClear);
 		mainPanel.add(status, BorderLayout.NORTH); //status 레이블을 mainPanel 위쪽에 붙임 
 		mainPanel.add(canvasPanel, BorderLayout.CENTER);// canvas를 mainpanel 중앙에 붙임 
 		this.add(mainPanel);//mainPanel을 프레임에 붙임 
