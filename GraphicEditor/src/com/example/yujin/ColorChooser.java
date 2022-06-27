@@ -1,7 +1,6 @@
 package com.example.yujin;
 
 import java.awt.Color;
-
 import javax.swing.JColorChooser;
 import javax.swing.JFrame;
 import javax.swing.event.ChangeEvent;

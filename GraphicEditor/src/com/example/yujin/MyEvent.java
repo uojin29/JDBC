@@ -74,10 +74,13 @@ public class MyEvent extends JPanel{
 				}
 				else if(e.drawType.equals("Eraser")) {
 					g2.setColor(Color.WHITE);//색 조절하기 
-
 					for(int j = 0; j < e.point.size() - 1; j++) {
 						g.drawLine(e.point.get(j).x, e.point.get(j).y, e.point.get(j + 1).x, e.point.get(j + 1).y);
 					}
+				}
+				else if(e.drawType.equals("Text")) {
+					g.drawString(MainFrame.inputText.getText(), e.sv.x, e.sv.y);
+					System.out.println(MainFrame.inputText.getText());
 				}
 			}
 		}
@@ -108,6 +111,9 @@ public class MyEvent extends JPanel{
 					g.drawLine(p.get(i).x, p.get(i).y, p.get(i + 1).x, p.get(i + 1).y);
 				}
 			}
+			else if(MainFrame.toolName.equals("Text")) {
+				g.drawString(MainFrame.inputText.getText(), startP.x, startP.y);
+			}
 			
 		}
 	}
@@ -125,7 +131,6 @@ public class MyEvent extends JPanel{
 		public void mouseReleased(MouseEvent e){
 			endP = e.getPoint();
 			p.add(endP);
-			System.out.println(stack);
 			if(MainFrame.toolName.equals("Line") || MainFrame.toolName.equals("Square") || MainFrame.toolName.equals("Circle")) {
 				list.add(new List(MainFrame.toolName, MainFrame.colorValue, Float.parseFloat(MainFrame.textfield.getText()), startP, endP));
 			}
@@ -133,6 +138,9 @@ public class MyEvent extends JPanel{
 				list.add(new List(MainFrame.toolName, MainFrame.colorValue, Float.parseFloat(MainFrame.textfield.getText()), startP, endP, p));
 			}
 			else if(MainFrame.toolName.equals("Eraser")) {
+				list.add(new List(MainFrame.toolName, MainFrame.colorValue, Float.parseFloat(MainFrame.textfield.getText()), startP, endP, p));
+			}
+			else if(MainFrame.toolName.equals("Text")) {
 				list.add(new List(MainFrame.toolName, MainFrame.colorValue, Float.parseFloat(MainFrame.textfield.getText()), startP, endP, p));
 			}
 			repaint();
