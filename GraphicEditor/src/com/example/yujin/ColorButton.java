@@ -3,7 +3,6 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-
 import java.awt.event.*;
 import java.util.*;
 
@@ -12,8 +11,8 @@ public class ColorButton extends JButton implements ChangeListener{
 	JColorChooser colorChooser;
 	
 	private boolean isChanged = false;
-	Color color;
-	ColorButton(){
+		Color color;
+		ColorButton(){
 		
 	}
 	
@@ -23,6 +22,7 @@ public class ColorButton extends JButton implements ChangeListener{
 		colorChooser = new JColorChooser();
 		colorChooserFrame.add(colorChooser);
 		colorChooser.getSelectionModel().addChangeListener(this);
+		
 		this.setOpaque(true);
 		this.setBorderPainted(false);
 		this.setBackground(Color.BLACK);
@@ -39,7 +39,7 @@ public class ColorButton extends JButton implements ChangeListener{
 			isChanged= true;
 			ColorButton.this.setBorderPainted(false);
 			ColorButton.this.setOpaque(true);
-			System.out.println(color);
+			//System.out.println(color);
 		}
 	};
 	public Color getColor() {

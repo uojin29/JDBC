@@ -6,10 +6,11 @@ import java.awt.event.*;
 import java.util.*;
 
 public class MyEvent extends JPanel{
-	Point startP=null;
-	Point endP=null;
+	static Point startP=null;
+	static Point endP=null;
 	static ArrayList<List> list = new ArrayList<List>();
 	ArrayList<Point> p;
+	static Stack <List> stack = new Stack<List>();
 	
 	public MyEvent(){
 		MyMouseListener ml = new MyMouseListener();
@@ -18,7 +19,6 @@ public class MyEvent extends JPanel{
 		this.setBounds(0,0,1200,800);
 		this.setBackground(Color.WHITE);
 	}
-	
 	class List {
 		String drawType;
 		Color colorList;
@@ -53,8 +53,9 @@ public class MyEvent extends JPanel{
 		if(list.size() != 0){
 			for(int i = 0; i < list.size();i++){ //벡터크기만큼
 				List e = list.get(i);
-				g2.setStroke(new BasicStroke(e.thicknessList));//굵기 조절 바로 하기 
+				g2.setStroke(new BasicStroke(e.thicknessList,BasicStroke.CAP_ROUND,0));//굵기 조절 바로 하기 
 				if(e.drawType.equals("Line")) {
+					g2.setColor(e.colorList);//색 조절하기 
 					g.drawLine(e.sv.x, e.sv.y, e.se.x, e.se.y);//그리다
 				}
 				else if(e.drawType.equals("Square")) {
@@ -81,7 +82,7 @@ public class MyEvent extends JPanel{
 			}
 		}
 		if(startP != null) {
-			g2.setStroke(new BasicStroke(Float.parseFloat(MainFrame.textfield.getText())));//굵기 조절 바로 하기 
+			g2.setStroke(new BasicStroke(Float.parseFloat(MainFrame.textfield.getText()),BasicStroke.CAP_ROUND,0));//굵기 조절 바로 하기 
 			
 			if(MainFrame.toolName.equals("Line")) {
 				g2.setColor(MainFrame.colorValue);//색 조절하기 
@@ -107,6 +108,7 @@ public class MyEvent extends JPanel{
 					g.drawLine(p.get(i).x, p.get(i).y, p.get(i + 1).x, p.get(i + 1).y);
 				}
 			}
+			
 		}
 	}
 	
@@ -119,10 +121,11 @@ public class MyEvent extends JPanel{
 				repaint();
 			}
 		}
+		
 		public void mouseReleased(MouseEvent e){
 			endP = e.getPoint();
 			p.add(endP);
-			
+			System.out.println(stack);
 			if(MainFrame.toolName.equals("Line") || MainFrame.toolName.equals("Square") || MainFrame.toolName.equals("Circle")) {
 				list.add(new List(MainFrame.toolName, MainFrame.colorValue, Float.parseFloat(MainFrame.textfield.getText()), startP, endP));
 			}
@@ -147,3 +150,4 @@ public class MyEvent extends JPanel{
 	}
 	
 }
+

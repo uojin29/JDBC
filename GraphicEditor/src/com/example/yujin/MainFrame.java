@@ -7,7 +7,7 @@ import java.util.*;
 public class MainFrame extends JFrame{
 	JPanel mainPanel = new JPanel();//가장 큰 패널로 JFrame의 모든 것들을 수용하는 패널 
 	JPanel status = new JPanel(); // 레이블과 버튼을 붙일 패널 
-	public static JPanel canvasPanel = new JPanel(); // 그림을 그릴 패널 
+	public static JPanel canvasPanel; // 그림을 그릴 패널 
 	JLabel current_tool = new JLabel("Tool : ");
 	public static JLabel label = new JLabel("[Pen]"); //현재 툴의 상태를 표시해줄 레이블 
 	JLabel current_color = new JLabel("		Color : ");
@@ -20,9 +20,9 @@ public class MainFrame extends JFrame{
 	public MainFrame() {
 		this.setTitle("Graphic Editor"); //frame의 이름 설정 
 		mainPanel.setLayout(new BorderLayout()); // 가장 큰 패널을 borderlayout으로 선언
-		canvasPanel.setBackground(Color.WHITE);
-		canvasPanel.setLayout(null);
-		canvasPanel.setBounds(0,0,1200,800);
+		//canvasPanel.setBackground(Color.WHITE);
+		//canvasPanel.setLayout(null);
+		//canvasPanel.setBounds(0,0,1200,800);
 		status.setLayout(new FlowLayout(FlowLayout.LEFT));//status 패널을 플로우 레이아웃으로 선언 (왼쪽부터 차례대로 배치)
 		textfield.setText("1");//굵기의 초기값을 1로 지정함 
 	}
@@ -35,7 +35,7 @@ public class MainFrame extends JFrame{
 	
 	private void createMainFrame() {
 		MenuBar menubar = new MenuBar(); //menubar라는 이름으로 menubar 클래스를 호출하여 인스턴스화 함 
-		MyEvent myevent = new MyEvent();
+		canvasPanel = new MyEvent();
 		ColorButton chooserCaller = new ColorButton();
 		
 		this.add(menubar); // 이 프레임에 메뉴바를 붙임 
@@ -43,8 +43,6 @@ public class MainFrame extends JFrame{
 		this.setSize(1200,800);//프레임 사이즈 고정 
 		this.setResizable(false);//프레임 사이즈 변경 불가 
 		chooserCaller.createProperty();
-		
-		canvasPanel.add(myevent);
 		status.add(current_tool);
 		status.add(label);//status 패널에 label 붙임 
 		status.add(current_color);
