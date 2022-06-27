@@ -5,8 +5,8 @@ import javax.swing.*;
 import java.awt.event.*;
 
 public class MyEvent extends JPanel{
-	static Point startP=null;
-	static Point endP=null;
+	static Point startP = null;
+	static Point endP = null;
 	static ArrayList<List> list = new ArrayList<List>();
 	ArrayList<Point> p;
 	static Stack <List> stack = new Stack<List>();
@@ -80,6 +80,8 @@ public class MyEvent extends JPanel{
 					}
 				}
 				else if(e.drawType.equals("Text")) {
+					g2.setFont(new Font("", Font.PLAIN, (int)e.thicknessList));
+					g2.setColor(e.colorList);
 					for(int j = 0; j < e.point.size() - 1; j++) {
 						g.drawString(s.get(i), e.sv.x, e.sv.y);
 					}
@@ -113,12 +115,6 @@ public class MyEvent extends JPanel{
 					g.drawLine(p.get(i).x, p.get(i).y, p.get(i + 1).x, p.get(i + 1).y);
 				}
 			}
-			else if(MainFrame.toolName.equals("Text")) {
-				for(int i = 0; i < p.size() - 1; i++) {
-					//g.drawString(s.get(i), startP.x, startP.y);
-				}
-			}
-			
 		}
 	}
 	

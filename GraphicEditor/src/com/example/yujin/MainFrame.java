@@ -17,15 +17,13 @@ public class MainFrame extends JFrame{
 	public static JTextField inputText = new JTextField(15);
 	public static String toolName = "Pen";
 	public static Color colorValue = Color.BLACK;
-	//static String currentText;
-	
+		
 	
 	public MainFrame() {
 		this.setTitle("Graphic Editor"); //frame의 이름 설정 
 		mainPanel.setLayout(new BorderLayout()); // 가장 큰 패널을 borderlayout으로 선언
 		status.setLayout(new FlowLayout(FlowLayout.LEFT));//status 패널을 플로우 레이아웃으로 선언 (왼쪽부터 차례대로 배치)
-		textfield.setText("1");//굵기의 초기값을 1로 지정함 
-		//inputText.setText("Text : ");
+		textfield.setText("10");//굵기의 초기값을 1로 지정함 
 	}
 	
 	public static void main(String[] args) {
@@ -37,13 +35,13 @@ public class MainFrame extends JFrame{
 		MenuBar menubar = new MenuBar(); //menubar라는 이름으로 menubar 클래스를 호출하여 인스턴스화 함 
 		canvasPanel = new MyEvent();
 		ColorButton chooserCaller = new ColorButton();
+		AllClearButton acbutton = new AllClearButton("All Clear");
 		this.add(menubar); // 이 프레임에 메뉴바를 붙임 
 		this.setJMenuBar(menubar);
 		this.setSize(1200,800);//프레임 사이즈 고정 
 		this.setResizable(false);//프레임 사이즈 변경 불가 
 		chooserCaller.createProperty();
 		
-		//textButton.add(textfield);
 		status.add(current_tool);
 		status.add(label);//status 패널에 label 붙임 
 		status.add(current_color);
@@ -52,19 +50,27 @@ public class MainFrame extends JFrame{
 		status.add(textfield);
 		status.add(text);
 		status.add(inputText);
-//		if(inputText.getText() != "") {
-//			currentText = inputText.getText();
-//		}
-//		System.out.println(currentText);
-	//	status.add(textButton);
-		//canvasPanel.add(textfield);
+		status.add(acbutton);
 		mainPanel.add(status, BorderLayout.NORTH); //status 레이블을 mainPanel 위쪽에 붙임 
 		mainPanel.add(canvasPanel, BorderLayout.CENTER);// canvas를 mainpanel 중앙에 붙임 
 		this.add(mainPanel);//mainPanel을 프레임에 붙임 
 		this.setVisible(true);
+		
+		acbutton.addActionListener(listener);
+		
+		
+	}
+	ActionListener listener = new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			String tool = e.getActionCommand();
+			if(tool.equals("All Clear")) {
+				MainFrame.toolName = "All Clear";
+				MainFrame.label.setText("[All Clear]");
+				MyEvent.startP = null;
+				MyEvent.endP = null;
+				MyEvent.list.clear();
+				canvasPanel.repaint();
+			}
 		}
-//	private void labelSet() {
-//		Font font = new Font("", Font.PLAIN, 15);
-//		current_tool.setFont(font);
-//	}
+	};
 }
