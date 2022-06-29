@@ -10,7 +10,6 @@ public class DataBase_main extends JFrame{
 	public SignUp signUp = null;
 	public SearchId searchID = null;
 	public Completion complete = null;
-	//public User user = null;
 
 	public void change(String panelName) {
 		if(panelName.equals("SignUp")) {
@@ -37,12 +36,6 @@ public class DataBase_main extends JFrame{
 			revalidate();
 			repaint();
 		}
-			//else if(panelName.equals("User")){
-//			getContentPane().removeAll();
-//			getContentPane().add(user);
-//			revalidate();
-//			repaint();
-//		}
 		else {
 			getContentPane().removeAll();
 			getContentPane().add(startPage);
@@ -58,7 +51,6 @@ public class DataBase_main extends JFrame{
 		start.searchID = new SearchId(start);
 		start.signUp = new SignUp(start);
 		start.complete = new Completion(start);
-	//	start.user = new User(start);
 		
 		start.add(start.startPage);
 		start.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
