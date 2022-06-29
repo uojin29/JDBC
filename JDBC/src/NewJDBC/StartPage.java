@@ -4,35 +4,43 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.util.*;
 
-public class StartPage extends JFrame{
-	public Login login = null;
-	public SignUp signup = null;
-	static final int WIDTH = 1200;
-	static final int HEIGHT = 800;
-
-	public void change(String panelName) {
-		if(panelName.equals("SignUp")) {
-			getContentPane().removeAll();
-			getContentPane().add(signup);
-			revalidate();
-			repaint();
-		}
-		else if(panelName.equals("Login")){
-			getContentPane().removeAll();
-			getContentPane().add(login);
-			revalidate();
-			repaint();
-		}
+public class StartPage extends JPanel{
+	
+	private JButton signBt, loginBt;
+    private DataBase_main start;
+    
+    public StartPage(DataBase_main start) {
+		this.start = start;
+		setLayout(null);
+		this.setBackground(Color.LIGHT_GRAY);
+		JLabel status = new JLabel("<Start>");
+		status.setFont(new Font("", Font.PLAIN, 55));
+		status.setBounds(500, 70, 500, 100);
+		add(status);
+		
+		signBt = new JButton("SignUp");
+		signBt.setSize(200, 100);
+		signBt.setLocation(350, 300);
+		add(signBt);
+		
+		loginBt = new JButton("Login");
+		loginBt.setSize(200, 100);
+		loginBt.setLocation(650, 300);
+		add(loginBt);
+		
+		signBt.addActionListener(new MyActionListener());
+		loginBt.addActionListener(new MyActionListener());
 	}
-	public static void main(String [] args) {
-		StartPage start = new StartPage();
-		
-		start.signup = new SignUp(start);
-		start.login = new Login(start);
-		
-		start.add(start.signup);
-		start.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		start.setSize(WIDTH, HEIGHT);
-		start.setVisible(true);
+	class MyActionListener implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String s = e.getActionCommand();
+			if(s.equals("SignUp")) {
+				start.change("SignUp");
+			}
+			else if(s.equals("Login")){
+				start.change("Login");
+			}
+		}
 	}
 }
