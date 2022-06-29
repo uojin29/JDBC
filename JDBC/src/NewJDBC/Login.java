@@ -9,10 +9,11 @@ public class Login extends JPanel{
 	private JPasswordField passwordField;
 	private DataBase_main start;
 	private JButton searchB, log_Completion;
+	//static String id ;
+	ConnectMySql con = new ConnectMySql();
     
-	public Login(DataBase_main start) {
+	public Login() {
 		setLayout(null);
-		this.start = start;
 		this.setBackground(Color.LIGHT_GRAY);
 		JLabel status = new JLabel("<Login>");
 		status.setFont(new Font("", Font.PLAIN, 55));
@@ -47,16 +48,31 @@ public class Login extends JPanel{
 		log_Completion.setLocation(600, 500);
 		add(log_Completion);
 		log_Completion.addActionListener(new MyActionListener());
+		DataBase_main.start.add(this);
 	}
 	class MyActionListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			
 			String s = e.getActionCommand();
 			if(s.equals("Search ID/PW")) {
-				start.change("Search ID/PW");
+				ConnectMySql.select();
+				new SearchId();
+				Login.this.setVisible(false);
 			}
 			else if(s.equals("Completion")){
-				start.change("Completion");
+				
+				if(con.login(id_field.getText()).equals(passwordField.getText())){
+					DataBase_main.userid = id_field.getText();
+					System.out.println(DataBase_main.userid + " "+ id_field.getText());
+				//	ConnectMySql.user_id = id_field.getText();
+					System.out.println(ConnectMySql.user_id);
+					new Completion();
+					Login.this.setVisible(false);
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "비밀번호가 틀렸습니다. 다시 입력하세요.", "MESSAGE", JOptionPane.PLAIN_MESSAGE);
+				}
 			}
 		}
 	}

@@ -8,8 +8,10 @@ public class StartPage extends JPanel{
 	
 	private JButton signBt, loginBt;
     private DataBase_main start;
-    
-    public StartPage(DataBase_main start) {
+//    StartPage(){
+//    	DataBase_main.start.add(this);
+//    }
+    public StartPage() {
 		this.start = start;
 		setLayout(null);
 		this.setBackground(Color.LIGHT_GRAY);
@@ -30,16 +32,22 @@ public class StartPage extends JPanel{
 		
 		signBt.addActionListener(new MyActionListener());
 		loginBt.addActionListener(new MyActionListener());
+		this.setVisible(true);
+		DataBase_main.start.add(this);
 	}
 	class MyActionListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			String s = e.getActionCommand();
 			if(s.equals("SignUp")) {
-				start.change("SignUp");
+				//start.change("SignUp");
+				new SignUp();
+				StartPage.this.setVisible(false);
 			}
 			else if(s.equals("Login")){
-				start.change("Login");
+				//start.change("Login");
+				new Login();
+				StartPage.this.setVisible(false);
 			}
 		}
 	}

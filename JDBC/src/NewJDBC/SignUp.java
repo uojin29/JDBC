@@ -7,19 +7,20 @@ import java.util.*;
 public class SignUp extends JPanel{
 	private JTextField name_field;
 	private JTextField id_field;
-	private JCheckBox idCheck;
+	private JButton idCheck;
 	private JPasswordField passwordField;
 	private JPasswordField confirm_passwordField;
 	private JTextField nickname_text;
 	private JTextField p_num_text;
 	private JCheckBox male, female;
 	private ButtonGroup group;
-	private DataBase_main start;
 	private JButton cancel, completion;
+	private int g;
+	private int flag = 0;
+	ConnectMySql con = new ConnectMySql();
     
-	public SignUp(DataBase_main start) {
+	public SignUp() {
 		setLayout(null);
-		this.start = start;
 		this.setBackground(Color.LIGHT_GRAY);
 		group = new ButtonGroup();
 		
@@ -28,7 +29,7 @@ public class SignUp extends JPanel{
 		status.setBounds(500, 70, 500, 100);
 		add(status);
 		
-		JLabel name = new JLabel("Name: ");
+		JLabel name = new JLabel("* Name: ");
 		name.setBounds(350, 200, 200, 40);
 		add(name);
 		
@@ -37,7 +38,7 @@ public class SignUp extends JPanel{
 		add(name_field);
 		name_field.setColumns(10);
 		
-		JLabel idLbl = new JLabel("ID: ");
+		JLabel idLbl = new JLabel("* ID: ");
 		idLbl.setBounds(350, 250, 200, 40);
 		add(idLbl);
 		
@@ -46,13 +47,12 @@ public class SignUp extends JPanel{
 		add(id_field);
 		id_field.setColumns(10);
 		
-		idCheck = new JCheckBox("ID 중복 확인", false);
-		idCheck.setBounds(850, 250, 300, 40);
+		idCheck = new JButton("✔");
+		idCheck.setBounds(850, 250, 40, 40);
 		add(idCheck);
-		idCheck.addItemListener(new MyItemListener());
-		//MyItemListener listener = new MyItemListener();
+		idCheck.addActionListener(new MyActionListener());
 		
-		JLabel pwLbl = new JLabel("PassWord: ");
+		JLabel pwLbl = new JLabel("* PassWord: ");
 		pwLbl.setBounds(350, 300, 200, 40);
 		add(pwLbl);
 		
@@ -60,7 +60,7 @@ public class SignUp extends JPanel{
 		passwordField.setBounds(500, 300, 350, 40);
 		add(passwordField);
 		
-		JLabel c_pwLbl = new JLabel("Confirm Password: ");
+		JLabel c_pwLbl = new JLabel("* Confirm Password: ");
 		c_pwLbl.setBounds(350, 350, 200, 40);
 		add(c_pwLbl);
 		
@@ -68,7 +68,7 @@ public class SignUp extends JPanel{
 		confirm_passwordField.setBounds(500, 350, 350, 40);
 		add(confirm_passwordField);
 		
-		JLabel nickname = new JLabel("NickName: ");
+		JLabel nickname = new JLabel("* NickName: ");
 		nickname.setBounds(350, 400, 200, 40);
 		add(nickname);
 		
@@ -109,17 +109,41 @@ public class SignUp extends JPanel{
 		completion.setLocation(600, 600);
 		add(completion);
 		completion.addActionListener(new MyActionListener());
+		this.setVisible(true);
+		DataBase_main.start.add(this);
 	}
 	class MyActionListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			String s = e.getActionCommand();
+			if(s.equals("✔")) {
+				flag = 1;
+				if(con.duplicate(id_field.getText()) != 0) {
+					JOptionPane.showMessageDialog(null, "ID가 중복입니다. 다시 입력하세요.", "MESSAGE", JOptionPane.PLAIN_MESSAGE);
+				}
+				else if(s.equals(null)) {
+					JOptionPane.showMessageDialog(null, "ID를 입력하세요.", "MESSAGE", JOptionPane.PLAIN_MESSAGE);
+				}
+				else if(con.duplicate(id_field.getText()) == 0) {
+					JOptionPane.showMessageDialog(null, "ID가 입력되었습니다.", "MESSAGE", JOptionPane.PLAIN_MESSAGE);
+					idCheck.setSelected(true);
+				}
+			}
+			
 			if(s.equals("Cancel")) {
-				start.change("");
+				SignUp.this.setVisible(false);
+				new StartPage();
 			}
 			else if(s.equals("Completion")){
 				if(passwordField.getText().equals(confirm_passwordField.getText())&& !passwordField.getText().isEmpty() && !id_field.getText().isEmpty() 
-						&& !nickname_text.getText().isEmpty() && !name_field.getText().isEmpty() && idCheck.isSelected()) {
+						&& !nickname_text.getText().isEmpty() && !name_field.getText().isEmpty() && flag == 1) {
+					if(male.isSelected()) {
+						g = 0;
+					}
+					else if(female.isSelected()) {
+						g = 1;
+					}
+					con.insert(name_field.getText(), id_field.getText(), passwordField.getText(), nickname_text.getText(), p_num_text.getText(), g);
 					JOptionPane.showMessageDialog(null, "회원가입이 완료되었습니다!", "MESSAGE", JOptionPane.PLAIN_MESSAGE);
 					name_field.setText(null);
 					id_field.setText(null);
@@ -129,33 +153,20 @@ public class SignUp extends JPanel{
 					p_num_text.setText(null);
 					male.setSelected(true);
 					female.setSelected(false);
-					start.change("Login");
+					flag = 0;
+					new Login();
+					SignUp.this.setVisible(false);
 				}
 				else if(!passwordField.getText().equals(confirm_passwordField.getText())){
 					JOptionPane.showMessageDialog(null, "비밀번호가 일치하지 않습니다", "MESSAGE", JOptionPane.PLAIN_MESSAGE);
 				}
-				else if(!idCheck.isSelected()){
+				else if(flag != 1){
 					JOptionPane.showMessageDialog(null, "ID 중복확인을 해주세요", "MESSAGE", JOptionPane.PLAIN_MESSAGE);
 				}
 				else{
 					JOptionPane.showMessageDialog(null, "다시 확인해주세요", "MESSAGE", JOptionPane.PLAIN_MESSAGE);
 				}
 			}
-		}
-	}
-	class MyItemListener implements ItemListener {
-		@Override
-		public void itemStateChanged(ItemEvent e) {
-//			if(ID가 중복이면) {
-//				JOptionPane.showMessageDialog(null, "ID가 중복입니다. 다시 입력하세요.", "MESSAGE", JOptionPane.PLAIN_MESSAGE);
-//			}
-//			else if(ID가 중복이 아니면) {
-//				JOptionPane.showMessageDialog(null, "ID가 입력되었습니다.", "MESSAGE", JOptionPane.PLAIN_MESSAGE);
-//				idCheck.setSelected(true);
-//			}
-			JOptionPane.showMessageDialog(null, "ID Check", "MESSAGE", JOptionPane.PLAIN_MESSAGE);
-			idCheck.setSelected(true);
-			
 		}
 	}
 }

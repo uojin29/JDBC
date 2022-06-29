@@ -11,9 +11,8 @@ public class SearchId extends JPanel{
 	private DataBase_main start;
 	private JButton cancel, search;
 	
-	public SearchId(DataBase_main start){
+	public SearchId(){
 		setLayout(null);
-		this.start = start;
 		this.setBackground(Color.LIGHT_GRAY);
 		JLabel status = new JLabel("<Search>");
 		status.setFont(new Font("", Font.PLAIN, 55));
@@ -56,6 +55,7 @@ public class SearchId extends JPanel{
 		search.setLocation(600, 500);
 		add(search);
 		search.addActionListener(new MyActionListener());
+		DataBase_main.start.add(this);
 	}
 	class MyActionListener implements ActionListener{
 		@Override
@@ -63,11 +63,13 @@ public class SearchId extends JPanel{
 			String s = e.getActionCommand();
 			if(s.equals("Cancel")) {
 				JOptionPane.showMessageDialog(null, "실행취소", "MESSAGE", JOptionPane.PLAIN_MESSAGE);
-				start.change("Login");
+				new Login();
+				SearchId.this.setVisible(false);
 			}
 			else if(s.equals("Search")){
 				//if 조건을 걸어서 일치하는 id가 있을 경우 있다, 없을 경우 없다 표시 
 				JOptionPane.showMessageDialog(null, "있을까요 없을까요~ ", "MESSAGE", JOptionPane.PLAIN_MESSAGE);
+				
 			}
 		}
 	}
