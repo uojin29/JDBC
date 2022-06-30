@@ -8,8 +8,8 @@ public class SearchId extends JPanel{
 	private JTextField name_text;
 	private JTextField nickname_text;
 	private JTextField p_num_field;
-	private DataBase_main start;
 	private JButton cancel, search;
+	ConnectMySql con = new ConnectMySql();
 	
 	public SearchId(){
 		setLayout(null);
@@ -29,20 +29,12 @@ public class SearchId extends JPanel{
 		name_text.setColumns(10);
 		
 		JLabel nickname = new JLabel("NickName: ");
-		nickname.setBounds(350, 400, 200, 40);
+		nickname.setBounds(350, 350, 200, 40);
 		add(nickname);
 		
 		nickname_text = new JTextField();
-		nickname_text.setBounds(500, 400, 350, 40);
+		nickname_text.setBounds(500, 350, 350, 40);
 		add(nickname_text);
-		
-		JLabel pwLbl = new JLabel("Phone Number: ");
-		pwLbl.setBounds(350, 350, 200, 40);
-		add(pwLbl);
-		
-		p_num_field = new JPasswordField();
-		p_num_field.setBounds(500, 350, 350, 40);
-		add(p_num_field);
 		
 		cancel = new JButton("Cancel");
 		cancel.setSize(200, 100);
@@ -67,9 +59,15 @@ public class SearchId extends JPanel{
 				SearchId.this.setVisible(false);
 			}
 			else if(s.equals("Search")){
-				//if 조건을 걸어서 일치하는 id가 있을 경우 있다, 없을 경우 없다 표시 
-				JOptionPane.showMessageDialog(null, "있을까요 없을까요~ ", "MESSAGE", JOptionPane.PLAIN_MESSAGE);
-				
+				if(con.existAccount(name_text.getText(), nickname_text.getText()) != 0) {
+					JOptionPane.showMessageDialog(null, "Id: " + con.searchid(name_text.getText(), nickname_text.getText()) + 
+							"\nPassWord: "+ con.searchpw(name_text.getText(), nickname_text.getText()), "MESSAGE", JOptionPane.PLAIN_MESSAGE);
+					new Login();
+					SearchId.this.setVisible(false);
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "일치하는 계정 정보가 없습니다.", "MESSAGE", JOptionPane.PLAIN_MESSAGE);
+				}	
 			}
 		}
 	}

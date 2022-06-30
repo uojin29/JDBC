@@ -26,7 +26,7 @@ public class SignUp extends JPanel{
 		
 		JLabel status = new JLabel("<Sign Up>");
 		status.setFont(new Font("", Font.PLAIN, 55));
-		status.setBounds(500, 70, 500, 100);
+		status.setBounds(450, 70, 500, 100);
 		add(status);
 		
 		JLabel name = new JLabel("* Name: ");
@@ -47,8 +47,11 @@ public class SignUp extends JPanel{
 		add(id_field);
 		id_field.setColumns(10);
 		
-		idCheck = new JButton("✔");
-		idCheck.setBounds(850, 250, 40, 40);
+		idCheck = new JButton("✓");
+		idCheck.setBounds(850, 245, 55, 55);
+		idCheck.setOpaque(true);//배경색 적용을 허용하겠다.
+		idCheck.setBorderPainted(false);	//포커스 표시 설
+		//idCheck.setBackground(Color.WHITE);
 		add(idCheck);
 		idCheck.addActionListener(new MyActionListener());
 		
@@ -116,13 +119,16 @@ public class SignUp extends JPanel{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			String s = e.getActionCommand();
-			if(s.equals("✔")) {
+			if(s.equals("✓")) {
 				flag = 1;
-				if(con.duplicate(id_field.getText()) != 0) {
-					JOptionPane.showMessageDialog(null, "ID가 중복입니다. 다시 입력하세요.", "MESSAGE", JOptionPane.PLAIN_MESSAGE);
-				}
-				else if(s.equals(null)) {
+				idCheck.setOpaque(true);//배경색 적용을 허용하겠다.
+				idCheck.setBorderPainted(false);
+				idCheck.setBackground(Color.PINK);
+				if(id_field.getText().isEmpty()) {
 					JOptionPane.showMessageDialog(null, "ID를 입력하세요.", "MESSAGE", JOptionPane.PLAIN_MESSAGE);
+				}
+				else if(con.duplicate(id_field.getText()) != 0) {
+					JOptionPane.showMessageDialog(null, "ID가 중복입니다. 다시 입력하세요.", "MESSAGE", JOptionPane.PLAIN_MESSAGE);
 				}
 				else if(con.duplicate(id_field.getText()) == 0) {
 					JOptionPane.showMessageDialog(null, "ID가 입력되었습니다.", "MESSAGE", JOptionPane.PLAIN_MESSAGE);
@@ -154,7 +160,8 @@ public class SignUp extends JPanel{
 					male.setSelected(true);
 					female.setSelected(false);
 					flag = 0;
-					new Login();
+					idCheck.setBackground(Color.WHITE);
+					new StartPage();
 					SignUp.this.setVisible(false);
 				}
 				else if(!passwordField.getText().equals(confirm_passwordField.getText())){
@@ -164,7 +171,7 @@ public class SignUp extends JPanel{
 					JOptionPane.showMessageDialog(null, "ID 중복확인을 해주세요", "MESSAGE", JOptionPane.PLAIN_MESSAGE);
 				}
 				else{
-					JOptionPane.showMessageDialog(null, "다시 확인해주세요", "MESSAGE", JOptionPane.PLAIN_MESSAGE);
+					JOptionPane.showMessageDialog(null, "필수 항목을 다 입력하세요", "MESSAGE", JOptionPane.PLAIN_MESSAGE);
 				}
 			}
 		}

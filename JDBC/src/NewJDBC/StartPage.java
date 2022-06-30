@@ -5,14 +5,8 @@ import java.awt.event.*;
 import java.util.*;
 
 public class StartPage extends JPanel{
-	
 	private JButton signBt, loginBt;
-    private DataBase_main start;
-//    StartPage(){
-//    	DataBase_main.start.add(this);
-//    }
     public StartPage() {
-		this.start = start;
 		setLayout(null);
 		this.setBackground(Color.LIGHT_GRAY);
 		JLabel status = new JLabel("<Start>");
@@ -40,12 +34,10 @@ public class StartPage extends JPanel{
 		public void actionPerformed(ActionEvent e) {
 			String s = e.getActionCommand();
 			if(s.equals("SignUp")) {
-				//start.change("SignUp");
 				new SignUp();
 				StartPage.this.setVisible(false);
 			}
 			else if(s.equals("Login")){
-				//start.change("Login");
 				new Login();
 				StartPage.this.setVisible(false);
 			}
